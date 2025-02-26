@@ -1,7 +1,7 @@
 # ИИ-ассистент для компании по установке окон
 Ссылка на проект : @narrodnyeoknaa_bot
 
-Скриншот 1 : https://github.com/alex25807/ai_assis/commit/d6a5f7a7901095255092ad4fb87bba7149304559
+Скриншот : https://github.com/alex25807/ai_assis/commit/d6a5f7a7901095255092ad4fb87bba7149304559
 
 
 ## О проекте
