@@ -1,0 +1,117 @@
+[
+  {
+    "id": "start_no_quotes",
+    "steps": [
+      {
+        "user": "/start",
+        "expect_contains": ["Привет! Я ИИ-ассистент компании «Народные окна»"],
+        "expect_not_contains": ["\"Привет"],
+        "expect_buttons": ["Вызвать замерщика", "Узнать цены", "Сроки", "Связаться с менеджером"]
+      }
+    ]
+  },
+  {
+    "id": "measure_asks_name_only",
+    "steps": [
+      {
+        "user": "Мне надо в квартире поменять старые окна на пластиковые. Можно вызвать замерщика?",
+        "expect_contains": ["Как вас зовут"],
+        "expect_not_contains": ["Контактный номер телефона", "Удобное для вас время"]
+      }
+    ]
+  },
+  {
+    "id": "free_question_does_not_restart_form",
+    "steps": [
+      {"user": "Можно вызвать замерщика?"},
+      {
+        "user": "Это точно бесплатная услуга?",
+        "expect_contains": ["бесплат", "Как вас зовут"],
+        "expect_not_contains": ["1. Ваше имя", "2. Контактный номер"]
+      }
+    ]
+  },
+  {
+    "id": "price_three_windows",
+    "steps": [
+      {
+        "user": "Мне надо заменить 3 окна. Сколько это будет стоить?",
+        "expect_contains": ["Стоимость замены окон", "Gealan", "замер"],
+        "expect_not_contains": ["₽", "9:00"]
+      }
+    ]
+  },
+  {
+    "id": "timeline_three_windows",
+    "steps": [
+      {
+        "user": "Сколько времени займет замена 3 окон?",
+        "expect_contains": ["1 рабочий день"]
+      }
+    ]
+  },
+  {
+    "id": "hours_are_ten_to_eighteen",
+    "steps": [
+      {
+        "user": "Какой график работы?",
+        "expect_contains": ["10:00", "18:00"],
+        "expect_not_contains": ["9:00"]
+      }
+    ]
+  },
+  {
+    "id": "reject_fake_phone",
+    "steps": [
+      {"callback": "m"},
+      {"user": "Александр"},
+      {
+        "user": "0000000",
+        "expect_contains": ["не подходит"],
+        "expect_not_contains": ["Вы записаны"]
+      }
+    ]
+  },
+  {
+    "id": "feb_29_non_leap",
+    "steps": [
+      {"callback": "m"},
+      {"user": "Александр"},
+      {"user": "+79144976060"},
+      {"user": "Чита, ул. Бабушкина, 153, кв. 10"},
+      {
+        "user": "29 февраля",
+        "expect_contains": ["не существует", "не является високосным", "28 февраля"]
+      }
+    ]
+  },
+  {
+    "id": "booking_needs_confirmation",
+    "steps": [
+      {"callback": "m"},
+      {"user": "Александр"},
+      {"user": "+79144976060"},
+      {"user": "Чита, ул. Бабушкина, 153, кв. 10"},
+      {"user": "28 февраля в 14ч"},
+      {
+        "expect_contains": ["Подтвердить", "Александр", "+79144976060", "Бабушкина"],
+        "expect_not_contains": ["Вы записаны"]
+      }
+    ]
+  },
+  {
+    "id": "occupied_slot_suggests_whole_hours",
+    "setup": "book_other_chat_feb28_14",
+    "steps": [
+      {"callback": "m"},
+      {"user": "Мария"},
+      {"user": "89141234567"},
+      {"user": "Чита, Ленина 1"},
+      {
+        "user": "28 февраля в 14ч",
+        "expect_contains": ["занято", "15:00"],
+        "expect_not_contains": ["15:15"]
+      }
+    ]
+  }
+]
